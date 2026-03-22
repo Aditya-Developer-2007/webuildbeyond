@@ -1,0 +1,15 @@
+{
+  "name": "webuildbeyond",
+  "version": "1.0.0",
+  "description": "We Build Beyond — Full MERN Stack",
+  "scripts": {
+    "install:all":   "cd backend && npm install && cd ../frontend && npm install",
+    "dev":           "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend":"cd frontend && npm run dev",
+    "admin:create":  "cd backend && node createAdmin.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
