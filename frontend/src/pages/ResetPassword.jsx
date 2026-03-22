@@ -51,7 +51,7 @@ export default function ResetPassword() {
 
         {/* Logo */}
         <Link to="/" style={s.logoWrap}>
-            <img src="/src/assets/Logo.png" alt="We Build Beyond" style={{ height: 85, objectFit: 'contain' }} />
+            <img src="/Logo.png" alt="We Build Beyond" style={{ height: 85, objectFit: 'contain' }} />
         </Link>
 
         <h2 style={s.title}>Reset Password 🔐</h2>

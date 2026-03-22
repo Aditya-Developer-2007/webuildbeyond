@@ -100,7 +100,7 @@ export default function AuthPage() {
 
         {/* Logo */}
         <Link to="/" style={s.logoWrap}>
-          <img src="/src/assets/Logo.png" alt="We Build Beyond" style={{ height: 85, objectFit: 'contain' }} />
+          <img src="/Logo.png" alt="We Build Beyond" style={{ height: 85, objectFit: 'contain' }} />
         </Link>
 
         {/* Tabs */}

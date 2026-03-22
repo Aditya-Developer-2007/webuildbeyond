@@ -28,7 +28,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/">
           <img
-            src="/src/assets/logo.png"
+            src="/Logo.png"
             alt="We Build Beyond"
             style={{ height: 60, objectFit: 'contain' }}
           />
@@ -107,7 +107,7 @@ export default function Navbar() {
         {/* Sidebar Header */}
         <div style={styles.sidebarHeader}>
           <img
-            src="/src/assets/logo.png"
+            src="/Logo.png"
             alt="We Build Beyond"
             style={{ height: 36, objectFit: 'contain' }}
           />

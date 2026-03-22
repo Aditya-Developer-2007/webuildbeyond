@@ -51,7 +51,7 @@ export default function AdminDashboard() {
       {/* Sidebar */}
       <aside style={s.sidebar}>
         <Link to="/" style={styles.sidebarLogo}>
-            <img src="/src/assets/Logo.png" alt="We Build Beyond" style={{ height: 36, objectFit: 'contain', filter: 'invert(1)' }} />
+            <img src="/Logo.png" alt="We Build Beyond" style={{ height: 36, objectFit: 'contain', filter: 'invert(1)' }} />
         </Link>
         <p style={s.sidebarAdmin}>Admin Panel</p>
 

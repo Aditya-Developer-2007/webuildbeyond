@@ -263,7 +263,7 @@ export default function Home() {
         <div className="footer-grid-wrap" style={{ display:'grid', gridTemplateColumns:'1.5fr 1fr 1fr', gap:48, paddingBottom:40, borderBottom:'1px solid rgba(255,255,255,.1)' }}>
           <div>
             <div style={{ fontFamily:"'Nunito',sans-serif", fontWeight:900, fontSize:18, color:'white', marginBottom:12 }}>
-              <img src="/src/assets/logo.png" alt="We Build Beyond" style={{ height: 70, objectFit: 'contain', filter: 'invert(1)' }} />
+              <img src="/Logo.png" alt="We Build Beyond" style={{ height: 70, objectFit: 'contain', filter: 'invert(1)' }} />
             </div>
             <p style={{ color:'rgba(255,255,255,.5)', fontSize:14, lineHeight:1.6, marginBottom:18 }}>
               We craft modern, high-converting websites that help businesses grow, stand out, and thrive online.
