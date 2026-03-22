@@ -3,6 +3,8 @@ import { useAuth } from './context/AuthContext';
 import Home from './pages/Home';
 import AuthPage from './pages/AuthPage';
 import AdminDashboard from './pages/AdminDashboard';
+import ResetPassword from './pages/ResetPassword';
+
 
 const PrivateAdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -25,6 +27,7 @@ export default function App() {
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
     </Routes>
   );
 }

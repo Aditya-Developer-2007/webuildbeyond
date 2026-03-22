@@ -263,7 +263,7 @@ export default function Home() {
         <div className="footer-grid-wrap" style={{ display:'grid', gridTemplateColumns:'1.5fr 1fr 1fr', gap:48, paddingBottom:40, borderBottom:'1px solid rgba(255,255,255,.1)' }}>
           <div>
             <div style={{ fontFamily:"'Nunito',sans-serif", fontWeight:900, fontSize:18, color:'white', marginBottom:12 }}>
-              <img src="/src/assets/logo.png" alt="We Build Beyond" style={{ height: 35, objectFit: 'contain', filter: 'invert(1)' }} />
+              <img src="/src/assets/logo.png" alt="We Build Beyond" style={{ height: 70, objectFit: 'contain', filter: 'invert(1)' }} />
             </div>
             <p style={{ color:'rgba(255,255,255,.5)', fontSize:14, lineHeight:1.6, marginBottom:18 }}>
               We craft modern, high-converting websites that help businesses grow, stand out, and thrive online.
@@ -309,8 +309,8 @@ export default function Home() {
 }
 
 const s = {
-  hero: { textAlign:'center', padding:'90px 60px 0' },
-  heroTitle: { fontFamily:"'Nunito',sans-serif", fontWeight:900, fontSize:'clamp(40px,5.5vw,64px)', lineHeight:1.1, letterSpacing:-1.5, margin:'18px auto 18px', maxWidth:720 },
+  hero: { textAlign:'center', padding:'130px 0px' },
+  heroTitle: { fontFamily:"'Nunito',sans-serif", fontWeight:900, fontSize:'clamp(50px,5.5vw,80px)', lineHeight:1.1, letterSpacing:-1.5, margin:'18px auto 18px', maxWidth:1000 },
   heroSub: { color:'#6B7280', fontSize:17, maxWidth:480, margin:'0 auto 36px', lineHeight:1.65 },
   heroButtons: { display:'flex', gap:14, justifyContent:'center', flexWrap:'wrap', paddingBottom:60 },
   badge: { display:'inline-flex', alignItems:'center', gap:7, background:'white', border:'1px solid #E5E7EB', borderRadius:50, padding:'6px 16px', fontSize:13, fontWeight:700, color:'#0D0D2B', fontFamily:"'Nunito',sans-serif" },
