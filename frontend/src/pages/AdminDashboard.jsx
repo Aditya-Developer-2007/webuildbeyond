@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [tab, setTab] = useState('visitors');
   const [visitors, setVisitors] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -44,14 +45,19 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   const statusColor = { new: '#F59E0B', read: '#3B82F6', replied: '#22C55E' };
 
   return (
     <div style={s.page}>
       {/* Sidebar */}
       <aside style={s.sidebar}>
-        <Link to="/" style={styles.sidebarLogo}>
-            <img src="/Logo.png" alt="We Build Beyond" style={{ height: 36, objectFit: 'contain', filter: 'invert(1)' }} />
+        <Link to="/" style={s.sidebarLogoWrap}>
+          <img src="/Logo.png" alt="We Build Beyond" style={{ height: 36, objectFit: 'contain', filter: 'invert(1)' }} />
         </Link>
         <p style={s.sidebarAdmin}>Admin Panel</p>
 
@@ -66,6 +72,7 @@ export default function AdminDashboard() {
         ))}
 
         <div style={{ flex: 1 }} />
+
         <div style={s.adminInfo}>
           <div style={s.adminAvatar}>{user?.name?.[0]}</div>
           <div>
@@ -73,7 +80,7 @@ export default function AdminDashboard() {
             <div style={s.adminRole}>Admin</div>
           </div>
         </div>
-        <button onClick={() => { logout(); }} style={s.logoutBtn}>Logout</button>
+        <button onClick={handleLogout} style={s.logoutBtn}>Logout</button>
       </aside>
 
       {/* Main */}
@@ -182,30 +189,40 @@ export default function AdminDashboard() {
 const s = {
   page: {
     display: 'flex', minHeight: '100vh',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", background: '#F4F6FA',
+    fontFamily: "'Nunito Sans', sans-serif", background: '#F4F6FA',
   },
   sidebar: {
     width: 220, background: '#0D0D2B', padding: '28px 20px',
-    display: 'flex', flexDirection: 'column', gap: 6, position: 'sticky', top: 0, height: '100vh',
+    display: 'flex', flexDirection: 'column', gap: 6,
+    position: 'sticky', top: 0, height: '100vh',
   },
-  sidebarLogo: {
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 17,
-    color: 'white', textDecoration: 'none', marginBottom: 4,
+  sidebarLogoWrap: {
+    display: 'block', marginBottom: 4, textDecoration: 'none',
   },
-  sidebarAdmin: { color: 'rgba(255,255,255,0.35)', fontSize: 11, fontWeight: 700, letterSpacing: 2, marginBottom: 20 },
+  sidebarAdmin: {
+    color: 'rgba(255,255,255,0.35)', fontSize: 11,
+    fontWeight: 700, letterSpacing: 2, marginBottom: 20,
+  },
   sidebarBtn: {
-    background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.6)',
+    background: 'transparent', border: 'none',
+    color: 'rgba(255,255,255,0.6)',
     padding: '10px 14px', borderRadius: 10, cursor: 'pointer',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 14,
+    fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: 14,
     textAlign: 'left', transition: 'all .2s',
   },
-  sidebarBtnActive: { background: 'rgba(108,99,255,0.25)', color: 'white' },
-  adminInfo: { display: 'flex', alignItems: 'center', gap: 10, padding: '12px 0', borderTop: '1px solid rgba(255,255,255,.1)' },
+  sidebarBtnActive: {
+    background: 'rgba(108,99,255,0.25)', color: 'white',
+  },
+  adminInfo: {
+    display: 'flex', alignItems: 'center', gap: 10,
+    padding: '12px 0', borderTop: '1px solid rgba(255,255,255,.1)',
+  },
   adminAvatar: {
     width: 34, height: 34, borderRadius: '50%',
     background: 'linear-gradient(135deg,#6C63FF,#9333ea)',
-    color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 15,
+    color: 'white', display: 'flex', alignItems: 'center',
+    justifyContent: 'center',
+    fontFamily: "'Nunito', sans-serif", fontWeight: 900, fontSize: 15,
   },
   adminName: { color: 'white', fontWeight: 700, fontSize: 13 },
   adminRole: { color: 'rgba(255,255,255,.4)', fontSize: 11 },
@@ -213,48 +230,62 @@ const s = {
     background: 'rgba(255,255,255,.07)', border: 'none',
     color: 'rgba(255,255,255,.5)', padding: '9px 14px',
     borderRadius: 10, cursor: 'pointer', textAlign: 'left',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 13,
+    fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: 13,
   },
   main: { flex: 1, padding: '40px 36px', overflowX: 'auto' },
-  statsRow: { display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20, marginBottom: 36 },
+  statsRow: {
+    display: 'grid', gridTemplateColumns: 'repeat(4,1fr)',
+    gap: 20, marginBottom: 36,
+  },
   statCard: {
-    background: 'white', borderRadius: 16, padding: '22px',
+    background: 'white', borderRadius: 16, padding: 22,
     border: '1px solid #EBEBEB', textAlign: 'center',
   },
   statIcon: { fontSize: 26, marginBottom: 8 },
-  statNum: { fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 30, color: '#0D0D2B' },
+  statNum: {
+    fontFamily: "'Nunito', sans-serif", fontWeight: 900,
+    fontSize: 30, color: '#0D0D2B',
+  },
   statLabel: { color: '#6B7280', fontSize: 13, fontWeight: 600, marginTop: 4 },
   sectionTitle: {
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 20,
-    color: '#0D0D2B', marginBottom: 20,
+    fontFamily: "'Nunito', sans-serif", fontWeight: 900,
+    fontSize: 20, color: '#0D0D2B', marginBottom: 20,
   },
-  tableWrap: { background: 'white', borderRadius: 16, border: '1px solid #EBEBEB', overflow: 'hidden' },
+  tableWrap: {
+    background: 'white', borderRadius: 16,
+    border: '1px solid #EBEBEB', overflow: 'hidden',
+  },
   table: { width: '100%', borderCollapse: 'collapse' },
   th: {
-    padding: '12px 16px', background: '#F9FAFB', borderBottom: '1px solid #E5E7EB',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: 12,
-    color: '#6B7280', textAlign: 'left', letterSpacing: '0.5px',
+    padding: '12px 16px', background: '#F9FAFB',
+    borderBottom: '1px solid #E5E7EB',
+    fontFamily: "'Nunito', sans-serif", fontWeight: 800,
+    fontSize: 12, color: '#6B7280', textAlign: 'left', letterSpacing: '0.5px',
   },
-  tr: { borderBottom: '1px solid #F3F4F6', transition: 'background .15s' },
+  tr: { borderBottom: '1px solid #F3F4F6' },
   td: { padding: '14px 16px', fontSize: 14, color: '#374151', verticalAlign: 'middle' },
   nameCell: { display: 'flex', alignItems: 'center', gap: 10 },
   avatar: {
     width: 30, height: 30, borderRadius: '50%',
     background: 'linear-gradient(135deg,#6C63FF,#9333ea)',
-    color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 900, fontSize: 13, flexShrink: 0,
+    color: 'white', display: 'flex', alignItems: 'center',
+    justifyContent: 'center',
+    fontFamily: "'Nunito', sans-serif", fontWeight: 900, fontSize: 13, flexShrink: 0,
   },
-  msgPreview: { display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+  msgPreview: {
+    display: 'block', overflow: 'hidden',
+    textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+  },
   badge: {
     display: 'inline-block', padding: '3px 12px', borderRadius: 50,
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 12,
+    fontFamily: "'Nunito', sans-serif", fontWeight: 700, fontSize: 12,
   },
   select: {
     border: '1.5px solid #E5E7EB', borderRadius: 8,
     padding: '5px 10px', fontSize: 13, cursor: 'pointer',
-    fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 600,
-    outline: 'none',
+    fontFamily: "'Nunito', sans-serif", fontWeight: 600, outline: 'none',
   },
   empty: { textAlign: 'center', padding: 40, color: '#9CA3AF', fontSize: 14 },
   loading: { textAlign: 'center', padding: 40, color: '#9CA3AF', fontSize: 14 },
 };
+
