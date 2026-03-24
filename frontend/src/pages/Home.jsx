@@ -63,17 +63,6 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="stats-bar-wrap" style={s.statsBar}>
-        {[['150+','Projects Delivered'],['98%','Client Satisfaction'],['5.0','Average Rating'],['3x','Conversion Boost']].map(([n,l]) => (
-          <div key={l} style={{ textAlign:'center' }}>
-            <div style={s.statNum}>{n}</div>
-            <div style={s.statLabel}>{l}</div>
-          </div>
-        ))}
-      </div>
-      <div style={s.scrollHint}>SCROLL</div>
-      <hr style={s.hr} />
-
       <section id="services" style={s.section}>
         <div style={s.sectionHeader}>
           <span style={{ ...s.badge2, background:'#ede9ff', color:'#6C63FF' }}>What We Do</span>
