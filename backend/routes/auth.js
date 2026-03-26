@@ -13,6 +13,18 @@ const resetTokens = new Map();
 const generateToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+// Gmail transporter
+const nodemailer = require('nodemailer');
+const createTransporter = () => nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
 // ─────────────────────────────────────────
 // @route  POST /api/auth/signup
 // @access Public
@@ -124,11 +136,7 @@ router.post('/forgot-password', async (req, res) => {
     });
 
     const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
-    const nodemailer = require('nodemailer');
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-    });
+    const transporter = createTransporter();
 
     await transporter.sendMail({
       from: `"We Build Beyond" <${process.env.EMAIL_USER}>`,

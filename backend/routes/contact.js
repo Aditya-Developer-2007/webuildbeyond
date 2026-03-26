@@ -5,20 +5,16 @@ const { body, validationResult } = require('express-validator');
 const Contact = require('../models/Contact');
 const { protect, adminOnly } = require('../middleware/authMiddleware');
 
-// ── Email transporter ──
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
 
-// ─────────────────────────────────────────
-// @route  POST /api/contact
-// @desc   Submit contact form → save to DB + email notification
-// @access Public
-// ─────────────────────────────────────────
 router.post(
   '/',
   [
