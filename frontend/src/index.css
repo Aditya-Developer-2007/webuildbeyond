@@ -107,22 +107,20 @@ nav button:hover { color: #6C63FF !important; }
   50%       { transform: translateX(-50%) scale(1.2); opacity: 1; }
 }
 
-/* ── GLASSMORPHISM CARDS ── */
+/* ── PREMIUM MINIMALIST CARDS ── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
   border-radius: 20px !important;
-  box-shadow: 0 8px 32px rgba(108, 99, 255, 0.08) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02) !important;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease !important;
   will-change: transform, box-shadow;
 }
 
 .glass-card:hover {
-  transform: translateY(-8px) !important;
-  box-shadow: 0 20px 40px rgba(108, 99, 255, 0.15) !important;
-  border: 1px solid rgba(108, 99, 255, 0.3) !important;
+  transform: translateY(-6px) !important;
+  box-shadow: 0 24px 48px rgba(108, 99, 255, 0.08) !important;
+  border: 1px solid rgba(108, 99, 255, 0.2) !important;
 }
 
 @keyframes staggerFadeUp {

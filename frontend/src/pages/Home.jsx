@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Navbar from '../components/Navbar';
-import { useEffect, useRef } from 'react';
+import { 
+  Heart, Users, TrendingUp, Zap, MessageCircle, Link as LinkIcon, Phone, Mail, Clock, CheckCircle, BarChart, Sparkles, MonitorSmartphone
+} from 'lucide-react';
+import imgDesign from '../assets/services/design.png';
+import imgDev from '../assets/services/dev.png';
+import imgRedesign from '../assets/services/redesign.png';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -77,17 +82,21 @@ export default function Home() {
           <h2 style={s.sectionTitle}>Services Built for <span style={{ color:'#6C63FF' }}>Impact</span></h2>
           <p style={s.sectionSub}>Everything you need to establish and grow your digital presence — crafted with care.</p>
         </div>
-        <div className="grid-3-col" style={s.grid3}>
+        <div className="grid-3-col" style={{ ...s.grid3, gap: 28 }}>
           {[
-            { tag:'UI/UX', icon:'🖥️', bg:'linear-gradient(135deg,#3B7EF8,#5B9FFF)', title:'Website Design', desc:'Pixel-perfect, visually stunning designs that captivate your audience and reflect your brand identity with purpose.' },
-            { tag:'Dev', icon:'</>',  bg:'linear-gradient(135deg,#7C3AED,#a855f7)', title:'Website Development', desc:'Fast, secure, and scalable websites built with modern tech stacks — optimized for performance and conversion.' },
-            { tag:'Redesign', icon:'🔄', bg:'linear-gradient(135deg,#EC4899,#f472b6)', title:'Website Redesign', desc:'Transform your outdated site into a modern powerhouse — improved UX, fresh aesthetics, and better results.' },
+            { img: imgDesign, tag:'UI/UX', title:'Website Design', desc:'Pixel-perfect, visually stunning designs that captivate your audience and reflect your brand identity with purpose.' },
+            { img: imgDev, tag:'Dev', title:'Website Development', desc:'Fast, secure, and scalable websites built with modern tech stacks — optimized for performance.' },
+            { img: imgRedesign, tag:'Redesign', title:'Website Redesign', desc:'Transform your outdated site into a modern powerhouse — improved UX, aesthetics, and results.' },
           ].map(c => (
-            <div key={c.title} className="glass-card scroll-hidden" style={s.card}>
-              <div style={s.cardTag}>{c.tag}</div>
-              <div style={{ ...s.cardIcon, background: c.bg }}>{c.icon}</div>
-              <h3 style={s.cardTitle}>{c.title}</h3>
-              <p style={s.cardDesc}>{c.desc}</p>
+            <div key={c.title} className="glass-card scroll-hidden" style={{ ...s.card, padding: 0, overflow: 'hidden', border: '1px solid #EBEBEB' }}>
+              <div style={{ position: 'relative', width: '100%', height: 220, background: '#F8F9FA' }}>
+                <img src={c.img} alt={c.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.9)', color: '#0D0D2B', padding: '4px 12px', borderRadius: 50, fontSize: 11, fontWeight: 800, fontFamily: "'Nunito',sans-serif" }}>{c.tag}</div>
+              </div>
+              <div style={{ padding: '28px 26px 32px' }}>
+                <h3 style={{ ...s.cardTitle, fontSize: 19 }}>{c.title}</h3>
+                <p style={s.cardDesc}>{c.desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -102,17 +111,17 @@ export default function Home() {
         </div>
         <div className="grid-3-col" style={s.grid3}>
           {[
-            { icon:'❤️', bg:'linear-gradient(135deg,#F43F5E,#fb7185)', title:'Viral Content Creation', desc:'Crafted posts and reels designed to maximize engagement, reach, and meaningful interactions.' },
-            { icon:'👥', bg:'linear-gradient(135deg,#3B7EF8,#5B9FFF)', title:'Community Management', desc:'Strategic audience building and engagement tactics that turn followers into loyal brand advocates.' },
-            { icon:'📈', bg:'linear-gradient(135deg,#7C3AED,#a855f7)', title:'Growth Strategy', desc:'Data-driven campaigns that accelerate follower growth and amplify your brand presence.' },
-            { icon:'⚡', bg:'linear-gradient(135deg,#F97316,#fb923c)', title:'Campaign Execution', desc:'End-to-end PR campaigns that generate buzz, build credibility, and drive real business results.' },
-            { icon:'💬', bg:'linear-gradient(135deg,#22C55E,#4ade80)', title:'Content Strategy', desc:'Custom content calendars and storytelling that aligns with your brand voice and business goals.' },
-            { icon:'🔗', bg:'linear-gradient(135deg,#475569,#64748b)', title:'Cross-Platform Promotion', desc:'Seamless distribution across Instagram, TikTok, Twitter, and LinkedIn to maximize your reach.' },
+            { icon: <Heart size={24} color="#F43F5E" />, title:'Viral Content Creation', desc:'Crafted posts and reels designed to maximize engagement, reach, and meaningful interactions.' },
+            { icon: <Users size={24} color="#3B7EF8" />, title:'Community Management', desc:'Strategic audience building and engagement tactics that turn followers into loyal brand advocates.' },
+            { icon: <TrendingUp size={24} color="#7C3AED" />, title:'Growth Strategy', desc:'Data-driven campaigns that accelerate follower growth and amplify your brand presence.' },
+            { icon: <Zap size={24} color="#F97316" />, title:'Campaign Execution', desc:'End-to-end PR campaigns that generate buzz, build credibility, and drive real business results.' },
+            { icon: <MessageCircle size={24} color="#22C55E" />, title:'Content Strategy', desc:'Custom content calendars and storytelling that aligns with your brand voice and business goals.' },
+            { icon: <LinkIcon size={24} color="#475569" />, title:'Cross-Platform Promotion', desc:'Seamless distribution across Instagram, TikTok, Twitter, and LinkedIn to maximize your reach.' },
           ].map(c => (
-            <div key={c.title} className="glass-card scroll-hidden" style={s.card}>
-              <div style={{ ...s.cardIcon, background: c.bg }}>{c.icon}</div>
+            <div key={c.title} className="glass-card scroll-hidden" style={{ ...s.card, display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, display:'flex', alignItems:'center', justifyContent:'center', background:'linear-gradient(135deg,rgba(108,99,255,0.05),rgba(108,99,255,0.1))', border: '1px solid rgba(108,99,255,0.1)' }}>{c.icon}</div>
               <h3 style={s.cardTitle}>{c.title}</h3>
-              <p style={s.cardDesc}>{c.desc}</p>
+              <p style={{ ...s.cardDesc, margin: 0 }}>{c.desc}</p>
             </div>
           ))}
         </div>
@@ -175,15 +184,15 @@ export default function Home() {
           </div>
           <div className="why-right-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
             {[
-              { icon:'⚡', title:'Lightning Fast Delivery', desc:"We move fast without cutting corners. Your project is delivered on time, every time." },
-              { icon:'✅', title:'Premium Quality Code', desc:"Clean, maintainable, and scalable code that performs flawlessly on every device." },
-              { icon:'💬', title:'Dedicated Support', desc:"We're with you beyond launch — proactive support and ongoing improvements." },
-              { icon:'📊', title:'Results-Driven Design', desc:"Every design decision is backed by conversion principles — your website works hard." },
+              { icon: <Zap size={22} color="#F59E0B" />, title:'Lightning Fast Delivery', desc:"We move fast without cutting corners. Your project is delivered on time, every time." },
+              { icon: <CheckCircle size={22} color="#10B981" />, title:'Premium Quality Code', desc:"Clean, maintainable, and scalable code that performs flawlessly on every device." },
+              { icon: <MessageCircle size={22} color="#3B82F6" />, title:'Dedicated Support', desc:"We're with you beyond launch — proactive support and ongoing improvements." },
+              { icon: <BarChart size={22} color="#8B5CF6" />, title:'Results-Driven Design', desc:"Every design decision is backed by conversion principles — your website works hard." },
             ].map(w => (
-              <div className="glass-card scroll-hidden" key={w.title} style={s.whyCard}>
-                <div style={{ fontSize:22, marginBottom:12 }}>{w.icon}</div>
-                <h4 style={{ fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, marginBottom:8 }}>{w.title}</h4>
-                <p style={{ color:'#6B7280', fontSize:13, lineHeight:1.6 }}>{w.desc}</p>
+              <div className="glass-card scroll-hidden" key={w.title} style={{ ...s.whyCard, display:'flex', flexDirection:'column', gap: 12 }}>
+                <div>{w.icon}</div>
+                <h4 style={{ fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, margin: 0 }}>{w.title}</h4>
+                <p style={{ color:'#6B7280', fontSize:13, lineHeight:1.6, margin: 0 }}>{w.desc}</p>
               </div>
             ))}
           </div>
@@ -216,9 +225,9 @@ export default function Home() {
         <div className="contact-grid-wrap" style={{ display:'grid', gridTemplateColumns:'1fr 1.4fr', gap:32 }}>
           <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
             {[
-              { icon:'✉️', bg:'#EFF6FF', label:'Email Us', value:'weebuildbeyond@gmail.com' },
-              { icon:'🕐', bg:'#F3F0FF', label:'Response Time', value:'Within 24 hours' },
-              { icon:'📞', bg:'#F0FDF4', label:'Call / WhatsApp', value:'+91 85276 06769' },
+              { icon: <Mail size={18} color="#3B82F6" />, bg:'#EFF6FF', label:'Email Us', value:'weebuildbeyond@gmail.com' },
+              { icon: <Clock size={18} color="#8B5CF6" />, bg:'#F3F0FF', label:'Response Time', value:'Within 24 hours' },
+              { icon: <Phone size={18} color="#10B981" />, bg:'#F0FDF4', label:'Call / WhatsApp', value:'+91 85276 06769' },
             ].map(c => (
               <div key={c.label} style={s.contactCard}>
                 <div style={{ ...s.contactIcon, background: c.bg }}>{c.icon}</div>
