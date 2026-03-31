@@ -20,9 +20,17 @@ export default function Home() {
       },
       { threshold: 0.15 }
     );
-  document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
-  return () => observer.disconnect();
-}, []);
+    
+    // Allow DOM to flush
+    const timeoutId = setTimeout(() => {
+      document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, []);
 
   const setField = (k) => (e) => setContactForm({ ...contactForm, [k]: e.target.value });
 

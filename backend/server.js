@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
 dotenv.config();
 
 const authRoutes    = require('./routes/auth');
@@ -37,12 +38,35 @@ app.use((err, req, res, next) => {
 // ── Connect & Start ──
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log('✅ MongoDB connected');
+
+    // Verify SMTP settings on startup
+    try {
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+      await transporter.verify();
+      console.log('✅ SMTP Mail connection ready');
+    } catch (mailErr) {
+      console.error('\n⚠️  EMAIL CONFIGURATION ERROR:');
+      console.error('❌ Could not connect to your Gmail account for sending emails.');
+      console.error('If you are using Gmail, your normal password will not work.');
+      console.error('Please generate an "App Password" in your Google Account Security settings and put it in your .env file as EMAIL_PASS.');
+      console.error(`Current .env user: ${process.env.EMAIL_USER || 'Not set'}`);
+      console.error('Detailed Error:', mailErr.message, '\n');
+    }
+
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
   })
   .catch((err) => {
-    console.error('❌ MongoDB connection error:', err.message);
+    console.error('❌ Server start error:', err.message || err);
     process.exit(1);
   });

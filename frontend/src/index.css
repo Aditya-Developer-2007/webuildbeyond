@@ -74,6 +74,7 @@ nav button:hover { color: #6C63FF !important; }
   transform: translateX(-50%);
   animation: pulseOrb 4s ease-in-out infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .grid-bg::after {
@@ -87,6 +88,7 @@ nav button:hover { color: #6C63FF !important; }
   right: 10%;
   animation: pulseOrb 6s ease-in-out infinite reverse;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 @keyframes pulseOrb {
@@ -97,12 +99,13 @@ nav button:hover { color: #6C63FF !important; }
 /* ── GLASSMORPHISM CARDS ── */
 .glass-card {
   background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
   border: 1px solid rgba(255, 255, 255, 0.8) !important;
   border-radius: 20px !important;
   box-shadow: 0 8px 32px rgba(108, 99, 255, 0.08) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  will-change: transform, box-shadow;
 }
 
 .glass-card:hover {
@@ -126,6 +129,7 @@ nav button:hover { color: #6C63FF !important; }
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.7s ease, transform 0.7s ease;
+  will-change: transform, opacity;
 }
 
 .scroll-visible {

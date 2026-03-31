@@ -81,9 +81,14 @@ router.post(
           </div>`,
       };
 
-      // Fire emails (non-blocking — don't fail request if email fails)
-      transporter.sendMail(ownerMailOptions).catch(e => console.error('Owner email error:', e));
-      transporter.sendMail(autoReplyOptions).catch(e => console.error('Auto-reply error:', e));
+      // Fire emails 
+      try {
+        await transporter.sendMail(ownerMailOptions);
+        await transporter.sendMail(autoReplyOptions);
+      } catch (emailErr) {
+        console.error('CRITICAL: Email failed to send due to SMTP config.', emailErr);
+        return res.status(500).json({ message: 'Failed to send message: Server email is misconfigured.' });
+      }
 
       res.status(201).json({ message: 'Message sent successfully! We\'ll reply within 24 hours.' });
     } catch (err) {
