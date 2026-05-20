@@ -1,33 +1,27 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
 import Home from './pages/Home';
-import AuthPage from './pages/AuthPage';
-import AdminDashboard from './pages/AdminDashboard';
-import ResetPassword from './pages/ResetPassword';
-
-
-const PrivateAdminRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-  if (loading) return null;
-  if (!user?.isAdmin) return <Navigate to="/" replace />;
-  return children;
-};
+import Preloader from './components/Preloader';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Keep the preloader visible for 2 seconds to show off the animation
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Preloader />;
+  }
+
   return (
     <Routes>
-      <Route path="/"       element={<Home />} />
-      <Route path="/auth"   element={<AuthPage />} />
-      <Route
-        path="/admin"
-        element={
-          <PrivateAdminRoute>
-            <AdminDashboard />
-          </PrivateAdminRoute>
-        }
-      />
+      <Route path="/" element={<Home />} />
       <Route path="*" element={<Navigate to="/" replace />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
     </Routes>
   );
 }

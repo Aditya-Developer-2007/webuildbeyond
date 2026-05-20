@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 import { 
@@ -9,6 +8,9 @@ import {
 import imgDesign from '../assets/services/design.png';
 import imgDev from '../assets/services/dev.png';
 import imgRedesign from '../assets/services/redesign.png';
+import imgProjLuxe from '../assets/projects/luxe.png';
+import imgProjFinflow from '../assets/projects/finflow.png';
+import imgProjNovamed from '../assets/projects/novamed.png';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -43,11 +45,31 @@ export default function Home() {
     e.preventDefault();
     setSending(true);
     try {
-      const { data } = await axios.post('/api/contact', contactForm);
-      toast.success(data.message);
-      setContactForm({ name: '', email: '', message: '' });
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE";
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: contactForm.name,
+          email: contactForm.email,
+          message: contactForm.message,
+          subject: "New Contact Message - We Build Beyond",
+          from_name: "We Build Beyond Website",
+        })
+      });
+      const data = await response.json();
+      if (data.success) {
+        toast.success("Message sent successfully!");
+        setContactForm({ name: '', email: '', message: '' });
+      } else {
+        toast.error(data.message || "Failed to send message");
+      }
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to send message');
+      toast.error("Failed to send message. Please try again.");
     } finally {
       setSending(false);
     }
@@ -103,37 +125,6 @@ export default function Home() {
       </section>
       <hr style={s.hr} />
 
-      <section id="social" style={{ ...s.section, background:'#F4F6FA' }}>
-        <div style={s.sectionHeader}>
-          <span style={{ ...s.badge2, background:'#fde8f5', color:'#d63aad' }}>Social Media & PR</span>
-          <h2 style={s.sectionTitle}>Instagram & PR Content That <span style={{ color:'#EC4899' }}>Captures Attention</span></h2>
-          <p style={s.sectionSub}>Build your brand with compelling social media content and PR strategies that resonate, engage, and convert.</p>
-        </div>
-        <div className="grid-3-col" style={s.grid3}>
-          {[
-            { icon: <Heart size={24} color="#F43F5E" />, title:'Viral Content Creation', desc:'Crafted posts and reels designed to maximize engagement, reach, and meaningful interactions.' },
-            { icon: <Users size={24} color="#3B7EF8" />, title:'Community Management', desc:'Strategic audience building and engagement tactics that turn followers into loyal brand advocates.' },
-            { icon: <TrendingUp size={24} color="#7C3AED" />, title:'Growth Strategy', desc:'Data-driven campaigns that accelerate follower growth and amplify your brand presence.' },
-            { icon: <Zap size={24} color="#F97316" />, title:'Campaign Execution', desc:'End-to-end PR campaigns that generate buzz, build credibility, and drive real business results.' },
-            { icon: <MessageCircle size={24} color="#22C55E" />, title:'Content Strategy', desc:'Custom content calendars and storytelling that aligns with your brand voice and business goals.' },
-            { icon: <LinkIcon size={24} color="#475569" />, title:'Cross-Platform Promotion', desc:'Seamless distribution across Instagram, TikTok, Twitter, and LinkedIn to maximize your reach.' },
-          ].map(c => (
-            <div key={c.title} className="glass-card scroll-hidden" style={{ ...s.card, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, display:'flex', alignItems:'center', justifyContent:'center', background:'linear-gradient(135deg,rgba(108,99,255,0.05),rgba(108,99,255,0.1))', border: '1px solid rgba(108,99,255,0.1)' }}>{c.icon}</div>
-              <h3 style={s.cardTitle}>{c.title}</h3>
-              <p style={{ ...s.cardDesc, margin: 0 }}>{c.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div style={s.ctaBanner}>
-          <h3 style={{ fontSize:28, fontWeight:900, marginBottom:10 }}>Ready to Go Viral?</h3>
-          <p style={{ opacity:.9, maxWidth:500, margin:'0 auto 24px', lineHeight:1.6 }}>
-            Let's create content that stops the scroll and builds your brand's authority across social platforms.
-          </p>
-          <button onClick={() => scrollTo('contact')} style={s.btnWhite}>Start a Campaign &nbsp;→</button>
-        </div>
-      </section>
-      <hr style={s.hr} />
 
       <section id="work" style={s.section}>
         <div style={s.sectionHeader}>
@@ -143,19 +134,27 @@ export default function Home() {
         </div>
         <div className="grid-3-col" style={s.grid3}>
           {[
-            { abbr:'LU', bg:'linear-gradient(135deg,#3B7EF8,#5B4AE8)', tag:'E-commerce', tagColor:'#2563eb', tagBg:'#e0eeff', title:'Luxe Commerce', desc:'Premium fashion brand with blazing-fast storefront and seamless checkout.' },
-            { abbr:'FF', bg:'linear-gradient(135deg,#4C1D95,#7C3AED)', tag:'SaaS App', tagColor:'#6C63FF', tagBg:'#ede9ff', title:'FinFlow Dashboard', desc:'Intuitive financial dashboard with real-time analytics and clean data visualization.' },
-            { abbr:'NO', bg:'linear-gradient(135deg,#14B8A6,#2DD4BF)', tag:'Healthcare', tagColor:'#0d9488', tagBg:'#d1faf4', title:'NovaMed Clinic', desc:'Modern medical practice website with online booking and patient portal.' },
+            { img: imgProjLuxe, tag:'E-commerce', tagColor:'#2563eb', tagBg:'#e0eeff', title:'Luxe Commerce', desc:'Premium fashion brand with blazing-fast storefront and seamless checkout.', link: '#' },
+            { img: imgProjFinflow, tag:'SaaS App', tagColor:'#6C63FF', tagBg:'#ede9ff', title:'FinFlow Dashboard', desc:'Intuitive financial dashboard with real-time analytics and clean data visualization.', link: '#' },
+            { img: imgProjNovamed, tag:'Healthcare', tagColor:'#0d9488', tagBg:'#d1faf4', title:'NovaMed Clinic', desc:'Modern medical practice website with online booking and patient portal.', link: '#' },
           ].map(p => (
             <div className="glass-card scroll-hidden" key={p.title} style={s.projectCard}>
-              <div style={{ ...s.projectThumb, background: p.bg }}>
-                {p.abbr}
-                <div style={s.projectOverlay}><span style={s.viewLive}>View Live</span></div>
+              <div style={{ ...s.projectThumb, backgroundImage: `url(${p.img})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                <div style={s.projectOverlay}>
+                  <a href={p.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                    <span style={s.viewLive}>View Live ↗</span>
+                  </a>
+                </div>
               </div>
               <div style={{ padding:'20px 22px' }}>
                 <span style={{ ...s.badge2, background: p.tagBg, color: p.tagColor, fontSize:11, padding:'3px 12px' }}>{p.tag}</span>
                 <h3 style={{ ...s.cardTitle, marginTop:8 }}>{p.title}</h3>
                 <p style={s.cardDesc}>{p.desc}</p>
+                <div style={{ marginTop: 20 }}>
+                  <a href={p.link} target="_blank" rel="noreferrer" style={s.livePreviewBtn}>
+                    Live Preview ↗
+                  </a>
+                </div>
               </div>
             </div>
           ))}
@@ -335,29 +334,30 @@ const s = {
   card: { background:'white', border:'1px solid #EBEBEB', borderRadius:18, padding:28 },
   cardTag: { fontSize:12, fontWeight:700, color:'#9CA3AF', textAlign:'right', marginBottom:16, fontFamily:"'Nunito',sans-serif" },
   cardIcon: { width:52, height:52, borderRadius:14, display:'flex', alignItems:'center', justifyContent:'center', fontSize:22, marginBottom:18 },
-  cardTitle: { fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:17, marginBottom:10 },
-  cardDesc: { color:'#6B7280', fontSize:14, lineHeight:1.6 },
+  cardTitle: { fontWeight:800, fontSize:19, marginBottom:10, color:'#0A0A1E' },
+  cardDesc: { color:'#6B7280', fontSize:15, lineHeight:1.6 },
   ctaBanner: { background:'linear-gradient(135deg,#EC4899,#F97316)', borderRadius:20, textAlign:'center', padding:'60px 40px', marginTop:48, color:'white' },
   btnWhite: { background:'white', color:'#6C63FF', border:'none', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, cursor:'pointer' },
   projectCard: { background:'white', border:'1px solid #EBEBEB', borderRadius:18, overflow:'hidden' },
   projectThumb: { height:200, display:'flex', alignItems:'center', justifyContent:'center', fontSize:36, fontWeight:900, letterSpacing:4, color:'rgba(255,255,255,.35)', position:'relative', fontFamily:"'Nunito',sans-serif" },
-  projectOverlay: { position:'absolute', inset:0, background:'rgba(0,0,0,.25)', display:'flex', alignItems:'center', justifyContent:'center', opacity:0, transition:'opacity .25s' },
-  viewLive: { background:'white', color:'#0D0D2B', borderRadius:50, padding:'10px 22px', fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:14, cursor:'pointer' },
+  projectOverlay: { position:'absolute', inset:0, background:'rgba(0,0,0,.35)', display:'flex', alignItems:'center', justifyContent:'center', opacity:0, transition:'opacity .3s ease' },
+  viewLive: { background:'white', color:'#0D0D2B', borderRadius:50, padding:'10px 24px', fontWeight:800, fontSize:14, cursor:'pointer', display:'inline-block', transition:'transform 0.2s', boxShadow:'0 4px 12px rgba(0,0,0,0.2)' },
+  livePreviewBtn: { display:'inline-flex', alignItems:'center', gap:6, background:'rgba(108,99,255,0.05)', color:'#6C63FF', border:'1.5px solid rgba(108,99,255,0.2)', padding:'8px 18px', borderRadius:50, fontWeight:700, fontSize:13, textDecoration:'none', transition:'all 0.2s ease' },
   whyCard: { background:'white', border:'1px solid #EBEBEB', borderRadius:16, padding:22 },
   ctaMain: { background:'linear-gradient(135deg,#5B4AE8,#7C3AED,#9333ea)', borderRadius:24, textAlign:'center', padding:'70px 40px', color:'white', position:'relative', overflow:'hidden' },
   ctaBadge: { display:'inline-block', background:'rgba(255,255,255,.2)', color:'white', borderRadius:50, padding:'5px 16px', fontSize:13, fontWeight:700, fontFamily:"'Nunito',sans-serif", marginBottom:20, border:'1px solid rgba(255,255,255,.3)' },
-  btnWhiteFill: { background:'white', color:'#6C63FF', border:'none', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', gap:8 },
-  btnOutlineWhite: { background:'transparent', color:'white', border:'2px solid rgba(255,255,255,.6)', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:700, fontSize:15, cursor:'pointer' },
-  contactCard: { background:'white', border:'1px solid #EBEBEB', borderRadius:14, padding:'16px 20px', display:'flex', alignItems:'center', gap:14 },
-  contactIcon: { width:40, height:40, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 },
-  whatsappBtn: { background:'#22C55E', color:'white', border:'none', padding:15, borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:10, textDecoration:'none', marginTop:4 },
+  btnWhiteFill: { background:'white', color:'#6C63FF', border:'none', padding:'16px 32px', borderRadius:50, fontWeight:700, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', gap:8, boxShadow:'0 10px 30px rgba(0,0,0,0.1)' },
+  btnOutlineWhite: { background:'transparent', color:'white', border:'2px solid rgba(255,255,255,.6)', padding:'16px 32px', borderRadius:50, fontWeight:700, fontSize:15, cursor:'pointer' },
+  contactCard: { background:'white', border:'1px solid #EBEBEB', borderRadius:16, padding:'20px 24px', display:'flex', alignItems:'center', gap:16, transition:'all 0.3s ease' },
+  contactIcon: { width:48, height:48, borderRadius:12, display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, flexShrink:0 },
+  whatsappBtn: { background:'#22C55E', color:'white', border:'none', padding:16, borderRadius:50, fontWeight:800, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:10, textDecoration:'none', marginTop:8, boxShadow:'0 10px 25px rgba(34,197,94,0.3)' },
   contactForm: { background:'white', border:'1px solid #EBEBEB', borderRadius:18, padding:32 },
   formGroup: { display:'flex', flexDirection:'column', gap:5 },
   formLabel: { fontFamily:"'Nunito',sans-serif", fontWeight:700, fontSize:14, color:'#0D0D2B' },
   formInput: { border:'1.5px solid #E5E7EB', borderRadius:10, padding:'12px 14px', fontSize:14, outline:'none', fontFamily:"'Nunito Sans',sans-serif", background:'#FAFAFA', color:'#0D0D2B' },
-  btnSend: { background:'#6C63FF', color:'white', border:'none', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, cursor:'pointer' },
-  btnDark: { background:'#0D0D2B', color:'white', border:'none', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', gap:8 },
-  btnOutline: { background:'white', color:'#0D0D2B', border:'1.5px solid #E5E7EB', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:700, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', gap:8 },
+  btnSend: { background:'#6C63FF', color:'white', border:'none', padding:'16px 32px', borderRadius:50, fontWeight:800, fontSize:15, cursor:'pointer', boxShadow:'0 10px 25px rgba(108,99,255,0.3)' },
+  btnDark: { background:'#0A0A1E', color:'white', border:'none', padding:'16px 32px', borderRadius:50, fontWeight:700, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', gap:8, boxShadow:'0 10px 30px rgba(0,0,0,0.1)' },
+  btnOutline: { background:'white', color:'#0A0A1E', border:'1.5px solid #E5E7EB', padding:'16px 32px', borderRadius:50, fontWeight:700, fontSize:15, cursor:'pointer', display:'flex', alignItems:'center', gap:8 },
   footer: { background:'#0D0D2B', color:'white', padding:'60px 60px 32px', fontFamily:"'Nunito Sans',sans-serif" },
   socialIcon: { width:36, height:36, borderRadius:8, background:'rgba(255,255,255,.1)', border:'1px solid rgba(255,255,255,.15)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:14, cursor:'pointer', color:'white', textDecoration:'none' },
   scrollTop: { position:'fixed', bottom:28, right:28, zIndex:200, width:44, height:44, borderRadius:'50%', background:'#6C63FF', color:'white', border:'none', fontSize:18, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 4px 16px rgba(108,99,255,.4)' },
