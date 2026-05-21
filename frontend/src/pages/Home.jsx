@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Navbar from '../components/Navbar';
 import { 
-  Heart, Users, TrendingUp, Zap, MessageCircle, Link as LinkIcon, Phone, Mail, Clock, CheckCircle, BarChart, Sparkles, MonitorSmartphone
+  Heart, Users, TrendingUp, Zap, MessageCircle, Link as LinkIcon, Phone, Mail, Clock, CheckCircle, BarChart, Sparkles, MonitorSmartphone,
+  PenTool, Code2, RefreshCcw, ArrowRight
 } from 'lucide-react';
-import imgDesign from '../assets/services/design.png';
-import imgDev from '../assets/services/dev.png';
-import imgRedesign from '../assets/services/redesign.png';
 import imgProjMedicare from '../assets/projects/medicare.png';
 import imgProjCafe from '../assets/projects/cafe.png';
 import imgProjEcommerce from '../assets/projects/ecommerce.png';
@@ -84,7 +82,7 @@ export default function Home() {
       <Navbar />
 
       <section id="home" className="grid-bg" style={s.hero}>
-        <span className="stagger-1" style={s.badge}><span style={s.dot} /> Web Development Agency</span>
+        <span className="stagger-1" style={s.badge}><span style={s.dot} /> Premium Web Solutions</span>
         <h1 className="stagger-2" style={s.heroTitle}>
           Your Business Deserves<br />
           to Be Seen <span style={{ color: '#6C63FF' }}>Online</span>
@@ -104,20 +102,40 @@ export default function Home() {
           <h2 style={s.sectionTitle}>Services Built for <span style={{ color:'#6C63FF' }}>Impact</span></h2>
           <p style={s.sectionSub}>Everything you need to establish and grow your digital presence — crafted with care.</p>
         </div>
-        <div className="grid-3-col" style={{ ...s.grid3, gap: 28 }}>
+        <div className="grid-3-col" style={{ ...s.grid3, gap: 32 }}>
           {[
-            { img: imgDesign, tag:'UI/UX', title:'Website Design', desc:'Pixel-perfect, visually stunning designs that captivate your audience and reflect your brand identity with purpose.' },
-            { img: imgDev, tag:'Dev', title:'Website Development', desc:'Fast, secure, and scalable websites built with modern tech stacks — optimized for performance.' },
-            { img: imgRedesign, tag:'Redesign', title:'Website Redesign', desc:'Transform your outdated site into a modern powerhouse — improved UX, aesthetics, and results.' },
+            { img: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=800&auto=format&fit=crop', icon: <PenTool size={22} color="#6C63FF" />, tagBg: '#ede9ff', tagColor: '#6C63FF', tag:'Design', title:'Website Design', desc:'Beautiful, easy-to-use websites that make your brand look highly professional and trustworthy online.', features: ['Mobile-Friendly Look', 'Easy to Navigate', 'Premium Brand Feel'] },
+            { img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop', icon: <Code2 size={22} color="#10B981" />, tagBg: '#d1faf4', tagColor: '#0d9488', tag:'Development', title:'Website Development', desc:'We build websites that load fast, work smoothly, and help you get more customers on autopilot.', features: ['Fast Loading Speed', 'Secure & Reliable', 'Online Store / Booking'] },
+            { img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop', icon: <RefreshCcw size={22} color="#F59E0B" />, tagBg: '#fef3c7', tagColor: '#d97706', tag:'Upgrade', title:'Website Redesign', desc:'Give your old, outdated website a fresh & modern look to attract more visitors and grow your business.', features: ['Fresh Modern Look', 'Better User Experience', 'More Sales & Leads'] },
           ].map(c => (
-            <div key={c.title} className="glass-card scroll-hidden" style={{ ...s.card, padding: 0, overflow: 'hidden', border: '1px solid #EBEBEB' }}>
-              <div style={{ position: 'relative', width: '100%', height: 280, background: '#F8F9FA' }}>
-                <img src={c.img} alt={c.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.9)', color: '#0D0D2B', padding: '4px 12px', borderRadius: 50, fontSize: 11, fontWeight: 800, fontFamily: "'Nunito',sans-serif" }}>{c.tag}</div>
+            <div key={c.title} className="glass-card scroll-hidden" style={{ ...s.card, padding: 0, overflow: 'hidden', border: '1px solid #EBEBEB', display: 'flex', flexDirection: 'column' }}>
+              
+              {/* Image Container with Floating Icon */}
+              <div style={{ position: 'relative', width: '100%', height: 240, background: '#F8F9FA' }}>
+                <img src={c.img} alt={c.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} />
+                <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.95)', color: '#0D0D2B', padding: '6px 14px', borderRadius: 50, fontSize: 12, fontWeight: 800, fontFamily: "'Nunito',sans-serif", boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>{c.tag}</div>
+                <div style={{ position: 'absolute', bottom: -24, left: 24, width: 56, height: 56, background: 'white', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 20px rgba(0,0,0,0.08)', border: '1px solid #F3F4F6' }}>
+                  {c.icon}
+                </div>
               </div>
-              <div style={{ padding: '28px 26px 32px' }}>
-                <h3 style={{ ...s.cardTitle, fontSize: 19 }}>{c.title}</h3>
-                <p style={s.cardDesc}>{c.desc}</p>
+
+              {/* Content Container */}
+              <div style={{ padding: '42px 28px 32px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <h3 style={{ ...s.cardTitle, fontSize: 22 }}>{c.title}</h3>
+                <p style={{ ...s.cardDesc, marginBottom: 24 }}>{c.desc}</p>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32, marginTop: 'auto' }}>
+                  {c.features.map(feat => (
+                    <div key={feat} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <CheckCircle size={16} color={c.tagColor} />
+                      <span style={{ fontSize: 14, color: '#4B5563', fontWeight: 600 }}>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div onClick={() => scrollTo('contact')} style={{ borderTop: '1px solid #F3F4F6', paddingTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', color: c.tagColor, fontWeight: 800, fontSize: 15, fontFamily: "'Nunito',sans-serif" }}>
+                  Explore Service <ArrowRight size={18} />
+                </div>
               </div>
             </div>
           ))}
