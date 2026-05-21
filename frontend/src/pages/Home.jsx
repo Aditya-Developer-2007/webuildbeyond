@@ -79,6 +79,14 @@ export default function Home() {
 
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", background: '#fff', color: '#0D0D2B' }}>
+      <style>{`
+        @media (max-width: 768px) {
+          #home {
+            padding-top: 160px !important;
+            padding-bottom: 90px !important;
+          }
+        }
+      `}</style>
       <Navbar />
 
       <section id="home" className="grid-bg" style={s.hero}>
