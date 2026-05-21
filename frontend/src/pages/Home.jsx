@@ -8,9 +8,9 @@ import {
 import imgDesign from '../assets/services/design.png';
 import imgDev from '../assets/services/dev.png';
 import imgRedesign from '../assets/services/redesign.png';
-import imgProjLuxe from '../assets/projects/luxe.png';
-import imgProjFinflow from '../assets/projects/finflow.png';
-import imgProjNovamed from '../assets/projects/novamed.png';
+import imgProjMedicare from '../assets/projects/medicare.png';
+import imgProjCafe from '../assets/projects/cafe.png';
+import imgProjEcommerce from '../assets/projects/ecommerce.png';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ export default function Home() {
             { img: imgRedesign, tag:'Redesign', title:'Website Redesign', desc:'Transform your outdated site into a modern powerhouse — improved UX, aesthetics, and results.' },
           ].map(c => (
             <div key={c.title} className="glass-card scroll-hidden" style={{ ...s.card, padding: 0, overflow: 'hidden', border: '1px solid #EBEBEB' }}>
-              <div style={{ position: 'relative', width: '100%', height: 220, background: '#F8F9FA' }}>
+              <div style={{ position: 'relative', width: '100%', height: 280, background: '#F8F9FA' }}>
                 <img src={c.img} alt={c.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(255,255,255,0.9)', color: '#0D0D2B', padding: '4px 12px', borderRadius: 50, fontSize: 11, fontWeight: 800, fontFamily: "'Nunito',sans-serif" }}>{c.tag}</div>
               </div>
@@ -134,9 +134,9 @@ export default function Home() {
         </div>
         <div className="grid-3-col" style={s.grid3}>
           {[
-            { img: imgProjLuxe, tag:'E-commerce', tagColor:'#2563eb', tagBg:'#e0eeff', title:'Luxe Commerce', desc:'Premium fashion brand with blazing-fast storefront and seamless checkout.', link: '#' },
-            { img: imgProjFinflow, tag:'SaaS App', tagColor:'#6C63FF', tagBg:'#ede9ff', title:'FinFlow Dashboard', desc:'Intuitive financial dashboard with real-time analytics and clean data visualization.', link: '#' },
-            { img: imgProjNovamed, tag:'Healthcare', tagColor:'#0d9488', tagBg:'#d1faf4', title:'NovaMed Clinic', desc:'Modern medical practice website with online booking and patient portal.', link: '#' },
+            { img: imgProjMedicare, tag:'Healthcare', tagColor:'#2563eb', tagBg:'#e0eeff', title:'Medicare Plus', desc:'A premium multispeciality healthcare clinic platform featuring compassionate healthcare, doctor booking, and medical services.', link: 'https://warm-choux-b91fcd.netlify.app/' },
+            { img: imgProjCafe, tag:'Cafe Website', tagColor:'#6C63FF', tagBg:'#ede9ff', title:'Cafe Website', desc:'A modern and responsive website for a local cafe, featuring a menu, gallery, and contact information.', link: 'https://sunny-puppy-a1702b.netlify.app/' },
+            { img: imgProjEcommerce, tag:'E-commerce', tagColor:'#0d9488', tagBg:'#d1faf4', title:'E-commerce Platform', desc:'A full-featured e-commerce site with product listings, a shopping cart, and a checkout process.', link: 'https://sparkling-torte-d17e1e.netlify.app/' },
           ].map(p => (
             <div className="glass-card scroll-hidden" key={p.title} style={s.projectCard}>
               <div style={{ ...s.projectThumb, backgroundImage: `url(${p.img})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
@@ -150,11 +150,6 @@ export default function Home() {
                 <span style={{ ...s.badge2, background: p.tagBg, color: p.tagColor, fontSize:11, padding:'3px 12px' }}>{p.tag}</span>
                 <h3 style={{ ...s.cardTitle, marginTop:8 }}>{p.title}</h3>
                 <p style={s.cardDesc}>{p.desc}</p>
-                <div style={{ marginTop: 20 }}>
-                  <a href={p.link} target="_blank" rel="noreferrer" style={s.livePreviewBtn}>
-                    Live Preview ↗
-                  </a>
-                </div>
               </div>
             </div>
           ))}
@@ -339,7 +334,7 @@ const s = {
   ctaBanner: { background:'linear-gradient(135deg,#EC4899,#F97316)', borderRadius:20, textAlign:'center', padding:'60px 40px', marginTop:48, color:'white' },
   btnWhite: { background:'white', color:'#6C63FF', border:'none', padding:'14px 28px', borderRadius:50, fontFamily:"'Nunito',sans-serif", fontWeight:800, fontSize:15, cursor:'pointer' },
   projectCard: { background:'white', border:'1px solid #EBEBEB', borderRadius:18, overflow:'hidden' },
-  projectThumb: { height:200, display:'flex', alignItems:'center', justifyContent:'center', fontSize:36, fontWeight:900, letterSpacing:4, color:'rgba(255,255,255,.35)', position:'relative', fontFamily:"'Nunito',sans-serif" },
+  projectThumb: { height:260, display:'flex', alignItems:'center', justifyContent:'center', fontSize:36, fontWeight:900, letterSpacing:4, color:'rgba(255,255,255,.35)', position:'relative', fontFamily:"'Nunito',sans-serif" },
   projectOverlay: { position:'absolute', inset:0, background:'rgba(0,0,0,.35)', display:'flex', alignItems:'center', justifyContent:'center', opacity:0, transition:'opacity .3s ease' },
   viewLive: { background:'white', color:'#0D0D2B', borderRadius:50, padding:'10px 24px', fontWeight:800, fontSize:14, cursor:'pointer', display:'inline-block', transition:'transform 0.2s', boxShadow:'0 4px 12px rgba(0,0,0,0.2)' },
   livePreviewBtn: { display:'inline-flex', alignItems:'center', gap:6, background:'rgba(108,99,255,0.05)', color:'#6C63FF', border:'1.5px solid rgba(108,99,255,0.2)', padding:'8px 18px', borderRadius:50, fontWeight:700, fontSize:13, textDecoration:'none', transition:'all 0.2s ease' },
